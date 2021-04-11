@@ -1,0 +1,541 @@
+ <!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Quiz</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <style>
+body{
+    background-color: aqua ;
+    font-family: Arial, Helvetica, sans-serif;
+}
+        #container {
+            background-color: #fff;
+            border: 4px solid grey;
+            width: 50vw;
+            height: auto;
+            border-radius: 10px;
+            padding: 10px;
+            margin: auto;
+            margin-top: 100px;
+            box-shadow: 10px 10px 10px grey;
+        }
+        .text{
+            
+        }
+       .button1 {
+            background-color: #8739f9;
+            color: #f2f5f5;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            box-shadow: 0 6px #6e16f3;
+	       -webkit-transition: none;
+	       -moz-transition: none;
+	        transition: none;
+        }
+        .button1-a {
+	border-radius: 5px;
+}
+
+.button1-a:hover {
+    background-color:#8739f9;
+	box-shadow: 0 4px #8739f9;
+	top: 2px;
+}
+
+.button1-a:active {
+	box-shadow: #8739f9;
+	top: 6px;
+}
+
+        .button2 {
+            background-color: #37b9f1;
+            color: #f2f5f5;
+            padding: 5px;
+            margin: 10px; 
+            width: 200px;
+            height: auto;
+            box-shadow: 0 6px #1cb6f8;
+	       -webkit-transition: none;
+	       -moz-transition: none;
+	        transition: none;
+        }
+        .button2-a {
+	border-radius: 5px;
+}
+
+.button2-a:hover {
+    background-color:#37b9f1;
+	box-shadow: 0 4px #37b9f1;
+	top: 2px;
+}
+
+.button2-a:active {
+	box-shadow: #37b9f1;
+	top: 6px;
+}
+        #ctext {
+            text-align: center;
+        }
+
+        #ltext {
+            text-align: left;
+        }
+
+        #correctans { 
+            color: green;
+        }
+
+        #wrongans {
+            color: red;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1 style="text-align: center;">QUIZ</h1>
+    <div id="container">
+        <div id="ctext">
+            
+            Question: <text id="qn">0</text><br/>
+            Score: <text id="sco">0</text>
+         <hr />
+            <div id="msg">Best of Luck!!</div><br />
+        </div>
+        <div id="ltext">
+            <div id="question"></div>
+            <div id="option1"></div>
+            <div id="option2"></div>
+            <div id="option3"></div>
+            <div id="option4"></div>
+            <div id="answer1"></div>
+            <div id="ctext">
+                <div id="dis1"><button class="button1 button1-a" onclick="begin()" >Begin</button></div>
+            </div>
+            <div id="next"></div>
+        </div>
+     </div>
+    
+    <script>
+        //question array
+        var q = [" Which of the following describes the a use of technology or machinery, specifically involving gases?<br /><br />", 
+        "A rigid external covering for the body in some invertebrate animals but also robots!<br /><br />", 
+        "The study of the mechanical laws relating to the movement or structure of living organisms(as a science) is called?<br /><br />",
+         "Which of the following describes the a use of technology or machinery, specifically involving liquids?<br /><br />",
+          "The the branch of technology that deals with dimensions of microscopic proportion, is known as?<br /><br />",
+           "In Robotics, what is meant by an Android?<br /><br />", 
+           "If a robot's output is typically carried out by actuators, what input devices are found on a robot?<br /><br />", 
+           "Clockwise of Anti clockwise rotation about the vertical axis to the perpendicular arm is provided through?<br /><br />", 
+           "Radial movement (in & out) to the manipulator arm is provided by<br /><br />", 
+           "Which of the following is not a programming language for computer controlled robot?<br /><br />",
+           "what is _____, if not love persevering"];
+        // option arrays
+        var a1 = ["<button class=button2 button2-a onclick=q1c()>Pneumatics</button>",
+                  "<button class=button2 button2-a onclick=q2c()>Exoskeleton</button>",
+                  "<button class=button2 button2-a onclick=q3c()>Biomechanincs</button>",
+                  "<button class=button2 button2-a onclick=q4i()>Pnuematics</button>",
+                  "<button class=button2 button2-a onclick=q5i()>Nannytechnology</button>",
+                  "<button class=button2 button2-a onclick=q6i()>A software program used to control a robot</button>",
+                  "<button class=button2 button2-a onclick=q7i()>Google Glasses</button>",
+                  "<button class=button2 button2-a onclick=q8i()>Shoulder swivel</button>",
+                  "<button class=button2 button2-a onclick=q9i()>Wrist yaw</button>",
+                  "<button class=button2 button2-a onclick=q10i()>HELP</button>",
+                  "<button class=button2 button2-a onclick=q11c()>Grief</button>"];
+                  
+
+        var a2 = ["<button class=button2 button2-a onclick=q1i()>Hydraulics</button>",
+                  "<button class=button2 button2-a onclick=q2i()>Endoskeleton</button>",
+                  "<button class=button2 button2-a onclick=q3i()>Bionics</button>",
+                  "<button class=button2 button2-a onclick=q4c()>Hydraulics</button>",
+                  "<button class=button2 button2-a onclick=q5c()>Nanotechnology</button>",
+                  "<button class=button2 button2-a onclick=q6c()>A robot with a human like appearance</button>",
+                  "<button class=button2 button2-a onclick=q7i()>Keypads</button>",
+                  "<button class=button2 button2-a onclick=q8i()>Elbow extension</button>",
+                  "<button class=button2 button2-a onclick=q9i()>Wrist swivel</button>",
+                  "<button class=button2 button2-a onclick=q10i()>RAIL</button>",
+                  "<button class=button2 button2-a onclick=q11i()>Sorrow</button>"];
+
+        var a3 = ["<button class=button2 button2-a onclick=q1i()>Actuation</button>",
+                  "<button class=button2 button2-a onclick=q2i()>Armor</button>",
+                  "<button class=button2 button2-a onclick=q3i()>Ergonomics</button>",
+                  "<button class=button2 button2-a onclick=q4i()>Carbonation</button>",
+                  "<button class=button2 button2-a onclick=q5i()>Microtechnology</button>",
+                  "<button class=button2 button2-a onclick=q6i()>A type of operating system</button>",
+                  "<button class=button2 button2-a onclick=q7c()>Sensors</button>",
+                  "<button class=button2 button2-a onclick=q8c()>Arm sweep</button>",
+                  "<button class=button2 button2-a onclick=q9i()>Wrist bend</button>",
+                  "<button class=button2 button2-a onclick=q10i()>VAL</button>",
+                  "<button class=button2 button2-a onclick=q11i()>misery</button>"];
+
+        var a4 = ["<button class=button2 button2-a onclick=q1i()>Carbonation</button>",
+                  "<button class=button2 button2-a onclick=q2i()>Hardware</button>",
+                  "<button class=button2 button2-a onclick=q3i()>Ergometrics</button>",
+                  "<button class=button2 button2-a onclick=q4i()>Aquatics</button>",
+                  "<button class=button2 button2-a onclick=q5i()>Micromachinery</button>",
+                  "<button class=button2 button2-a onclick=q6i()>A human with a robot like appearance</button>",
+                  "<button class=button2 button2-a onclick=q7i()>VR Headsets</button>",
+                  "<button class=button2 button2-a onclick=q8i()>Wrist bend</button>",
+                  "<button class=button2 button2-a onclick=q9c()>Elbow extension</button>",
+                  "<button class=button2 button2-a onclick=q10c()>AMU</button>",
+                  "<button class=button2 button2-a onclick=q11i()>pain</button>"];
+        //correct
+        var c = ["Correct", "Correct", "Correct", "Correct", "Correct", "Correct", "Correct", "Correct", "Correct", "Correct", "Correct"];
+        //incorrect
+        var i = ["Incorrect", "Incorrect", "Incorrect", "Incorrect", "Incorrect", "Incorrect", "Incorrect", "Incorrect", "Incorrect", "Incorrect", "Incorrect"];
+        //question
+        var n = 0;
+        n++; 
+        //score
+        var s = 0;
+        s++;
+
+        function begin() {
+            dis1.innerHTML = "";
+            msg.innerHTML = "";
+            question.innerHTML = q[0];
+            option1.innerHTML = a1[0];
+            option2.innerHTML = a2[0];
+            option3.innerHTML = a3[0];
+            option4.innerHTML = a4[0];
+            qn.innerHTML = n++;
+        }
+
+        function q1c() {
+            answer1.innerHTML = "<div id=correctans>" + c[0] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq2()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q1i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[0] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq2()>Next</button>";
+        }
+
+        function newq2() {
+            question.innerHTML = q[1];
+            option1.innerHTML = a1[1];
+            option2.innerHTML = a2[1];
+            option3.innerHTML = a3[1];
+            option4.innerHTML = a4[1];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q2c() {
+            answer1.innerHTML = "<div id=correctans>" + c[1] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq3()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q2i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[1] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq3()>Next</button>";
+        }
+
+        function newq3() {
+            question.innerHTML = q[2];
+            option1.innerHTML = a1[2];
+            option2.innerHTML = a2[2];
+            option3.innerHTML = a3[2];
+            option4.innerHTML = a4[2];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q3c() {
+            answer1.innerHTML = "<div id=correctans>" + c[2] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq4()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q3i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[2] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq4()>Next</button>";
+        }
+
+        function newq4() {
+            question.innerHTML = q[3];
+            option1.innerHTML = a1[3];
+            option2.innerHTML = a2[3];
+            option3.innerHTML = a3[3];
+            option4.innerHTML = a4[3];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+ 
+        function q4c() {
+            answer1.innerHTML = "<div id=correctans>" + c[3] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq5()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q4i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[3] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq5()>Next</button>";
+        }
+
+        function newq5() {
+            question.innerHTML = q[4];
+            option1.innerHTML = a1[4];
+            option2.innerHTML = a2[4];
+            option3.innerHTML = a3[4];
+            option4.innerHTML = a4[4];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q5c() {
+            answer1.innerHTML = "<div id=correctans>" + c[4] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq6()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q5i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[4] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq6()>Next</button>";
+        }
+
+        function newq6() {
+            question.innerHTML = q[5];
+            option1.innerHTML = a1[5];
+            option2.innerHTML = a2[5];
+            option3.innerHTML = a3[5];
+            option4.innerHTML = a4[5];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q6c() {
+            answer1.innerHTML = "<div id=correctans>" + c[5] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq7()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q6i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[5] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq7()>Next</button>";
+        }
+
+        function newq7() {
+            question.innerHTML = q[6];
+            option1.innerHTML = a1[6];
+            option2.innerHTML = a2[6];
+            option3.innerHTML = a3[6];
+            option4.innerHTML = a4[6];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q7c() {
+            answer1.innerHTML = "<div id=correctans>" + c[6] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq8()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q7i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[6] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq8()>Next</button>";
+        }
+
+        function newq8() {
+            question.innerHTML = q[7];
+            option1.innerHTML = a1[7];
+            option2.innerHTML = a2[7];
+            option3.innerHTML = a3[7];
+            option4.innerHTML = a4[7];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q8c() {
+            answer1.innerHTML = "<div id=correctans>" + c[7] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq9()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q8i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[7] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq9()>Next</button>";
+        }
+
+        function newq9() {
+            question.innerHTML = q[8];
+            option1.innerHTML = a1[8];
+            option2.innerHTML = a2[8];
+            option3.innerHTML = a3[8];
+            option4.innerHTML = a4[8];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q9c() {
+            answer1.innerHTML = "<div id=correctans>" + c[8] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq10()>Next</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q9i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[8] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq10()>Next</button>";
+        }
+
+        function newq10() {
+            question.innerHTML = q[9];
+            option1.innerHTML = a1[9];
+            option2.innerHTML = a2[9];
+            option3.innerHTML = a3[9];
+            option4.innerHTML = a4[9];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q10c() {
+            answer1.innerHTML = "<div id=correctans>" + c[9] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=end()>End of Quiz</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q10i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[9] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=newq11()>Next</button>";
+        }
+
+        function newq11() {
+            question.innerHTML = q[10];
+            option1.innerHTML = a1[10];
+            option2.innerHTML = a2[10];
+            option3.innerHTML = a3[10];
+            option4.innerHTML = a4[10];
+            next.innerHTML = "";
+            answer1.innerHTML = "";
+            qn.innerHTML = n++;
+        }
+
+        function q11c() {
+            answer1.innerHTML = "<div id=correctans>" + c[10] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=end()>End of Quiz</button>";
+            sco.innerHTML = s++;
+        }
+
+        function q11i() {
+            answer1.innerHTML = "<div id=wrongans>" + i[10] + "</div>";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<button class=button1 button1-a onclick=end()>End of Quiz</button>";
+        }
+
+        function end() {
+            msg.innerHTML = "Well Done!!";
+            question.innerHTML = "";
+            option1.innerHTML = "";
+            option2.innerHTML = "";
+            option3.innerHTML = "";
+            option4.innerHTML = "";
+            next.innerHTML = "<div id=ctext>" + "<button class=button1 button1-a onclick=Retry()>Try Again</button>" + "</div>";
+            answer1.innerHTML = "";
+        }
+        
+        function Retry() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
+
